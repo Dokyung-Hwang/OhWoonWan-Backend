@@ -11,19 +11,19 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
-    hibernate:
-      ddl-auto: create
     properties:
-      show_sql: true
-      format_sql: true
-      default_batch_fetch_size: 100     # N+1 Problem prevention
+      hibernate:
+        ddl-auto: create
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100     # N+1 Problem prevention
 
 
 logging:
   level:
     org:
       hibernate:
-        SQL: debug
+        SQL: DEBUG
         type:
           descriptor:
             sql:
