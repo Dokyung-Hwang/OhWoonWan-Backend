@@ -1,16 +1,27 @@
 package com.oww.OhWoonWanBackend.config;
 
+import com.oww.OhWoonWanBackend.service.CustomOAuth2UserService;
+import com.oww.OhWoonWanBackend.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)  // 특정 주소로 접근하면 권한 및 인증을 미리 체크
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final CustomUserDetailsService customUserDetailsService;
 
     private final CustomUserDetailsService myUserDetailsService;
 
@@ -22,6 +33,18 @@ public class SecurityConfig {
     public BCryptPasswordEncoder Encoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(encoder());
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring().antMatchers( "/css/**", "/js/**", "/img/**");
+    }
+
 
     @Bean
     @Override
