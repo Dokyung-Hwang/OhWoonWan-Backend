@@ -1,5 +1,6 @@
 package com.oww.OhWoonWanBackend.service;
 
+import com.oww.OhWoonWanBackend.OAuthAttributes;
 import com.oww.OhWoonWanBackend.entity.Account;
 import com.oww.OhWoonWanBackend.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-    private final AccountRepository userRepository;
+    private final AccountRepository accountRepository;
     private final HttpSession session;
 
     @Override
@@ -43,4 +44,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 attributes.getNameAttributeKey());
         }
     }
+
+    /* 소셜로그인시 기존 회원이 존재하면 수정날짜 정보만 업데이트해 기존의 데이터는 그대로 보존 */
+    private Account saveOrUpdate(OAuthAttributes attributes) {
+        Account account = accountRepository.findByEmail(attributes.getEmail())
+                .map(Account::updateModifiedDate)
+                .orElse(attributes.toEntity());
+        return accountRepository.save(account);    }
 }
