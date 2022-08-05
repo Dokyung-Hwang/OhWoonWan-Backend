@@ -1,6 +1,7 @@
 package com.oww.OhWoonWanBackend.service;
 
 import com.oww.OhWoonWanBackend.OAuthAttributes;
+import com.oww.OhWoonWanBackend.dto.AccountSessionDto;
 import com.oww.OhWoonWanBackend.entity.Account;
 import com.oww.OhWoonWanBackend.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,14 +36,14 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 .getUserInfoEndpoint().getUserNameAttributeName();
         /* OAuth2UserService */
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-        Account user = saveOrUpdate(attributes);
+        Account account = saveOrUpdate(attributes);
         /* 세션 정보를 저장하는 직렬화된 dto 클래스*/
-        session.setAttribute("user", new UserSessionDto(user));
+        session.setAttribute("user", new AccountSessionDto(account));
         return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(user.getRoleValue())),
+                Collections.singleton(new SimpleGrantedAuthority(account.getRoleValue())),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey());
-        }
+
     }
 
     /* 소셜로그인시 기존 회원이 존재하면 수정날짜 정보만 업데이트해 기존의 데이터는 그대로 보존 */
@@ -50,5 +51,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         Account account = accountRepository.findByEmail(attributes.getEmail())
                 .map(Account::updateModifiedDate)
                 .orElse(attributes.toEntity());
-        return accountRepository.save(account);    }
+        return accountRepository.save(account);
+    }
 }

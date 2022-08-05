@@ -31,6 +31,7 @@ public class Account extends TimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;     // 회원정보 수정을 위한 set method
+
     public void modify(String nickname, String password) {
         this.nickname = nickname;
         this.password = password;
