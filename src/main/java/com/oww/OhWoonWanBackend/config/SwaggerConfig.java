@@ -20,7 +20,7 @@ public class SwaggerConfig {
     private static final Contact DEFAULT_CONTACT = new Contact("Hwang Do Kyung", "https://github.com/Dokyung-Hwang", "hdokyung94@gmail.com");
 
     private static final ApiInfo DEFAULT_API_INFO = new ApiInfo(
-            "오운완 API",
+            "오운완 API DOCUMENT",
             "오운완 프로젝트 REST API SERVICE",
             "1.0",
             "urn:tos",

@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().ignoringAntMatchers("/api/**") /* REST API 사용 예외처리 */
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/auth/**", "/posts/read/**", "/posts/search/**")
+                .antMatchers("/", "/auth/**", "/posts/read/**", "/posts/search/**","/swagger-resources/**", "/swagger-ui/**", "/v2/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
