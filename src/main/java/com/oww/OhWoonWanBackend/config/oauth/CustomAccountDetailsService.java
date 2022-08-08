@@ -1,7 +1,7 @@
-package com.oww.OhWoonWanBackend.service;
+package com.oww.OhWoonWanBackend.config.oauth;
 
 import com.oww.OhWoonWanBackend.dto.AccountSessionDto;
-import com.oww.OhWoonWanBackend.entity.Account;
+import com.oww.OhWoonWanBackend.domain.Account;
 import com.oww.OhWoonWanBackend.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

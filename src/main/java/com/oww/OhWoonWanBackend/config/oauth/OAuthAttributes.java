@@ -1,8 +1,8 @@
-package com.oww.OhWoonWanBackend;
+package com.oww.OhWoonWanBackend.config.oauth;
 
 
-import com.oww.OhWoonWanBackend.entity.Account;
-import com.oww.OhWoonWanBackend.entity.Role;
+import com.oww.OhWoonWanBackend.domain.Account;
+import com.oww.OhWoonWanBackend.common.type.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

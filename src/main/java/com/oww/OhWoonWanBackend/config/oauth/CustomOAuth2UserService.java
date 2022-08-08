@@ -1,8 +1,8 @@
-package com.oww.OhWoonWanBackend.service;
+package com.oww.OhWoonWanBackend.config.oauth;
 
-import com.oww.OhWoonWanBackend.OAuthAttributes;
+import com.oww.OhWoonWanBackend.config.oauth.OAuthAttributes;
 import com.oww.OhWoonWanBackend.dto.AccountSessionDto;
-import com.oww.OhWoonWanBackend.entity.Account;
+import com.oww.OhWoonWanBackend.domain.Account;
 import com.oww.OhWoonWanBackend.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -46,7 +46,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     }
 
-    /* 소셜로그인시 기존 회원이 존재하면 수정날짜 정보만 업데이트해 기존의 데이터는 그대로 보존 */
+    // 소셜로그인시 기존 회원이 존재하면 수정날짜 정보만 업데이트해 기존의 데이터는 그대로 보존
     private Account saveOrUpdate(OAuthAttributes attributes) {
         Account account = accountRepository.findByEmail(attributes.getEmail())
                 .map(Account::updateModifiedDate)

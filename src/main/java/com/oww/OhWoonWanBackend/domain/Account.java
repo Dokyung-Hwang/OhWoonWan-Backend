@@ -1,5 +1,6 @@
-package com.oww.OhWoonWanBackend.entity;
+package com.oww.OhWoonWanBackend.domain;
 
+import com.oww.OhWoonWanBackend.common.type.Role;
 import lombok.*;
 
 import javax.persistence.*;

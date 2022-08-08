@@ -1,10 +1,11 @@
 package com.oww.OhWoonWanBackend.dto;
 
-import com.oww.OhWoonWanBackend.entity.Account;
-import com.oww.OhWoonWanBackend.entity.Role;
+import com.oww.OhWoonWanBackend.domain.Account;
+import com.oww.OhWoonWanBackend.common.type.Role;
 
 import java.io.Serializable;
 
+// 인증된 사용자 정보를 세션에 저장하기 위한 클래스
 public class AccountSessionDto implements Serializable {
     private String username;
     private String password;

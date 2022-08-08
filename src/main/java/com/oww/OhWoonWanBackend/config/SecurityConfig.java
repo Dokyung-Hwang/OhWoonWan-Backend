@@ -1,7 +1,7 @@
 package com.oww.OhWoonWanBackend.config;
 
-import com.oww.OhWoonWanBackend.service.CustomAccountDetailsService;
-import com.oww.OhWoonWanBackend.service.CustomOAuth2UserService;
+import com.oww.OhWoonWanBackend.config.oauth.CustomAccountDetailsService;
+import com.oww.OhWoonWanBackend.config.oauth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    /* 시큐리티가 로그인 과정에서 password를 가로챌때 어떤 해쉬로 암호화 했는지 확인 */
+     // 시큐리티가 로그인 과정에서 password를 가로챌때 어떤 해쉬로 암호화 했는지 확인
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService).passwordEncoder(encoder());
