@@ -20,7 +20,7 @@ public class Account extends TimeEntity {
     @Column(nullable = false, length = 30, unique = true)
     private String username;        // 아이디
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String nickname;
 
     @Column(length = 100)
