@@ -1,5 +1,6 @@
 package com.oww.OhWoonWanBackend.service;
 
+import com.oww.OhWoonWanBackend.dto.AccountSessionDto;
 import com.oww.OhWoonWanBackend.entity.Account;
 import com.oww.OhWoonWanBackend.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @Component
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomAccountDetailsService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
 
@@ -24,10 +25,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         Account account = accountRepository.findByUsername(username).orElseThrow(() ->
                 new UsernameNotFoundException("해당 사용자가 존재하지 않습니다. : " + username));
 
-        session.setAttribute("user", new UserSessionDto(user));
+        session.setAttribute("user", new AccountSessionDto(account));
 
         // security session에 사용자 정보 저장
-        return new CustomUserDetails(user);
+        return new CustomAccountDetails(account);
     }
 
 }
