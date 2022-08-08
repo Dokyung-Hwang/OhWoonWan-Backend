@@ -1,6 +1,6 @@
-package com.oww.OhWoonWanBackend.service;
+package com.oww.OhWoonWanBackend.config.oauth;
 
-import com.oww.OhWoonWanBackend.entity.Account;
+import com.oww.OhWoonWanBackend.domain.Account;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

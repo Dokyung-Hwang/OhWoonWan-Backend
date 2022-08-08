@@ -1,4 +1,4 @@
-package com.oww.OhWoonWanBackend.entity;
+package com.oww.OhWoonWanBackend.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
