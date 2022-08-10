@@ -36,6 +36,10 @@ public class BoardOf {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifiedDate;
 
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
+
     @OneToMany(mappedBy = "boardOf", cascade = CascadeType.REMOVE)
     private List<CommentOf> commentOfList;
 

@@ -25,14 +25,14 @@ public abstract class TimeEntity {
     // 해당 Entity 를 저장하기 이전에 실행
     @PrePersist
     public void onPrePersist() {
-        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         this.modifiedDate = this.createdDate;
     }
 
     // 해당 Entity 를 업데이트 하기 이전에 실행
     @PreUpdate
     public void onPreUpdate() {
-        this.modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+        this.modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
 }

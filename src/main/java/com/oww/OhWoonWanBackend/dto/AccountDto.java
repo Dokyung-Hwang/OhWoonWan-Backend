@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class AccountDto {
     private String username;
     private String password;
-    private String nickname;
     private String email;
     private Role role;
 
@@ -23,9 +22,8 @@ public class AccountDto {
         Account account = Account.builder()
                 .username(username)
                 .password(password)
-                .nickname(nickname)
                 .email(email)
-                .role(role.USER)
+                .role(Role.USER)
                 .build();
         return account;
     }
