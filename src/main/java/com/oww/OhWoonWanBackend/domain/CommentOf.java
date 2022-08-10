@@ -37,4 +37,8 @@ public class CommentOf {
     @ManyToOne
     @JoinColumn(name = "board_of_id")
     private BoardOf boardOf;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
 }
