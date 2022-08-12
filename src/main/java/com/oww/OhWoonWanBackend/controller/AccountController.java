@@ -1,6 +1,6 @@
 package com.oww.OhWoonWanBackend.controller;
 
-import com.oww.OhWoonWanBackend.dto.AccountSessionDto;
+import com.oww.OhWoonWanBackend.dto.account.AccountSessionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

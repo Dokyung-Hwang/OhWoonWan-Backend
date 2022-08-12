@@ -1,5 +1,6 @@
 package com.oww.OhWoonWanBackend.domain;
 
+import com.oww.OhWoonWanBackend.common.type.LikesType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,19 +13,20 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LikeOf {
+public class Likes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "like_of_id")
-    private Long id;
+    private Long likesId;
 
     @ManyToOne
-    @JoinColumn(name = "board_of_id")
-    private BoardOf boardOf;
-
+    @JoinColumn(name = "board_id")
+    private Board board;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
+
+    @Enumerated(EnumType.STRING)
+    private LikesType likesType;
 }
