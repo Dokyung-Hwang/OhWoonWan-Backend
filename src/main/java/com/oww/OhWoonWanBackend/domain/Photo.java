@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -17,8 +16,7 @@ public class Photo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "photo_id")
-    private Long id;
+    private Long photoId;
 
     private String photoName;
 
@@ -27,6 +25,6 @@ public class Photo {
     private String photoSize;
 
     @ManyToOne
-    @JoinColumn(name = "board_of_id")
-    private BoardOf boardOf;
+    @JoinColumn(name = "board_id")
+    private Board board;
 }

@@ -1,4 +1,4 @@
-package com.oww.OhWoonWanBackend.dto.commentof;
+package com.oww.OhWoonWanBackend.dto.comment;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -12,9 +12,10 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseCommentOfDto {
+public class ResponseCommentDto {
 
     private Long id;
+    private String nickname;
     private String content;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdDate;

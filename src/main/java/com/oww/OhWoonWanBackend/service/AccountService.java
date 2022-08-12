@@ -1,6 +1,6 @@
 package com.oww.OhWoonWanBackend.service;
 
-import com.oww.OhWoonWanBackend.dto.AccountDto;
+import com.oww.OhWoonWanBackend.dto.account.AccountDto;
 import com.oww.OhWoonWanBackend.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +18,6 @@ public class AccountService {
     public Long join(AccountDto dto) {
         dto.setPassword(encoder.encode(dto.getPassword()));
 
-        return accountRepository.save(dto.toEntity()).getId();
+        return accountRepository.save(dto.toEntity()).getAccountId();
     }
 }

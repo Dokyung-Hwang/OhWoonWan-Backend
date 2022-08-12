@@ -1,4 +1,4 @@
-package com.oww.OhWoonWanBackend.dto;
+package com.oww.OhWoonWanBackend.dto.account;
 
 import com.oww.OhWoonWanBackend.domain.Account;
 import com.oww.OhWoonWanBackend.common.type.Role;

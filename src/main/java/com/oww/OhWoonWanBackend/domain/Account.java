@@ -16,8 +16,7 @@ public class Account extends TimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "account_id")
-    private Long id;
+    private Long accountId;
 
     @Column(nullable = false, length = 30, unique = true)
     private String username;        // 아이디
@@ -36,13 +35,13 @@ public class Account extends TimeEntity {
     private Role role;     // 회원정보 수정을 위한 set method
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
-    private List<BoardOf> boardOfList;
+    private List<Board> boardList;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
-    private List<CommentOf> commentOfList;
+    private List<Comment> commentList;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
-    private List<LikeOf> likeOfList;
+    private List<Likes> likeList;
 
 
     public void modify(String nickname, String password) {

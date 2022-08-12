@@ -1,7 +1,6 @@
 package com.oww.OhWoonWanBackend.config.oauth;
 
-import com.oww.OhWoonWanBackend.config.oauth.OAuthAttributes;
-import com.oww.OhWoonWanBackend.dto.AccountSessionDto;
+import com.oww.OhWoonWanBackend.dto.account.AccountSessionDto;
 import com.oww.OhWoonWanBackend.domain.Account;
 import com.oww.OhWoonWanBackend.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;

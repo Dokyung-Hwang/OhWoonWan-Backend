@@ -1,32 +1,29 @@
 package com.oww.OhWoonWanBackend.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.oww.OhWoonWanBackend.common.type.BoardType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardOf {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_of_id")
-    private Long id;
+    private Long commentId;
 
     @Column(columnDefinition = "TEXT")
     private String content;
-
-    @Column(columnDefinition = "ENUM('OWW', 'MS')")
-    private BoardType boardType;
 
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -37,15 +34,10 @@ public class BoardOf {
     private LocalDateTime modifiedDate;
 
     @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
+
+    @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
-
-    @OneToMany(mappedBy = "boardOf", cascade = CascadeType.REMOVE)
-    private List<CommentOf> commentOfList;
-
-    @OneToMany(mappedBy = "boardOf", cascade = CascadeType.REMOVE)
-    private List<LikeOf> likeOfList;
-
-    @OneToMany(mappedBy = "boardOf", cascade = CascadeType.REMOVE)
-    private List<Photo> photoList;
 }
