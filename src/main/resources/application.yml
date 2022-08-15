@@ -14,7 +14,9 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: update
-
+    properties:
+      hibernate:
+        format_sql: true
 
   # OAuth
   profiles:
@@ -34,3 +36,7 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+
+# File Directory
+file:
+  dir: /Users/cheoljin/cheoljin-workspace/web-workspace/oww_files/
