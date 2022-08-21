@@ -3,14 +3,17 @@ package com.oww.OhWoonWanBackend.controller;
 import com.oww.OhWoonWanBackend.domain.Board;
 import com.oww.OhWoonWanBackend.dto.board.RequestRegisterBoardDto;
 import com.oww.OhWoonWanBackend.dto.board.ResponseBoardDto;
+import com.oww.OhWoonWanBackend.dto.board.ResponseBoardListDto;
+import com.oww.OhWoonWanBackend.dto.file.FileUploadDto;
 import com.oww.OhWoonWanBackend.service.BoardService;
+import com.oww.OhWoonWanBackend.service.FileUploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,31 +21,32 @@ import java.net.URI;
 public class BoardController {
 
     private final BoardService boardService;
+    private final FileUploadService fileUploadService;
 
-    // 게시판 조회(ID)
+    @GetMapping
+    public ResponseEntity<?> getBoardList() {
+        ResponseBoardListDto responseBoardListDto = boardService.getBordList();
+
+        return ResponseEntity.ok(responseBoardListDto);
+    }
+
     @GetMapping("/{boardId}")
     public ResponseEntity<?> getBoard(@PathVariable Long boardId) {
-        Board board = boardService.findById(boardId);
-
-        ResponseBoardDto responseBoardDto = ResponseBoardDto.builder()
-                .content(board.getContent())
-                .nickname(board.getAccount().getNickname())
-                .build();
+        ResponseBoardDto responseBoardDto = boardService.getBoard(boardId);
 
         return ResponseEntity.ok(responseBoardDto);
     }
-
-
-    // 게시판 추가
+    
     @PostMapping
-    public ResponseEntity<?> createBoard(@RequestBody RequestRegisterBoardDto requestDto) {
-        Board savedBoard = boardService.save(requestDto);
+    public ResponseEntity<?> registerBoard(RequestRegisterBoardDto requestDto) {
+
+        List<FileUploadDto> uploadedImageFileList = fileUploadService.storeFiles(requestDto.getImageFileList());
+
+        Board savedBoard = boardService.createBoard(requestDto, uploadedImageFileList);
         URI location = UriComponentsBuilder.newInstance().path("/board/{id}").buildAndExpand(savedBoard.getBoardId()).toUri();
         return ResponseEntity.created(location).build();
     }
 
-
-    // 게시판 삭제
     @DeleteMapping("/{boardId}")
     public ResponseEntity<?> deleteBoard(@PathVariable Long boardId) {
         boardService.delete(boardId);

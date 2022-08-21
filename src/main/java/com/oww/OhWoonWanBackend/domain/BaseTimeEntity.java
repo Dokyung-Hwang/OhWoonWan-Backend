@@ -15,22 +15,22 @@ import java.time.format.DateTimeFormatter;
 public abstract class BaseTimeEntity {
 
     @CreatedDate
-    private String createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
-    private String modifiedDate;
+    private LocalDateTime modifiedDate;
 
     // 해당 Entity 를 저장하기 이전에 실행
     @PrePersist
     public void onPrePersist() {
-        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.createdDate = LocalDateTime.now();
         this.modifiedDate = this.createdDate;
     }
 
     // 해당 Entity 를 업데이트 하기 이전에 실행
     @PreUpdate
     public void onPreUpdate() {
-        this.modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.modifiedDate = LocalDateTime.now();
     }
 
 }
