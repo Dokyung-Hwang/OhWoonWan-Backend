@@ -11,8 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
-@Setter
-public class Account extends TimeEntity {
+public class Account extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
