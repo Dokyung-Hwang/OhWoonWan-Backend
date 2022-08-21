@@ -14,10 +14,10 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final BCryptPasswordEncoder encoder;
 
-    @Transactional
+    /*@Transactional
     public Long join(AccountDto dto) {
         dto.setPassword(encoder.encode(dto.getPassword()));
 
         return accountRepository.save(dto.toEntity()).getAccountId();
-    }
+    }*/
 }
