@@ -1,25 +1,26 @@
-package com.oww.OhWoonWanBackend.entity;
+package com.oww.OhWoonWanBackend.domain;
 
+import com.oww.OhWoonWanBackend.common.type.Role;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
-@Setter
-public class Account extends TimeEntity {
+public class Account extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long accountId;
 
     @Column(nullable = false, length = 30, unique = true)
     private String username;        // 아이디
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String nickname;
 
     @Column(length = 100)
@@ -31,6 +32,17 @@ public class Account extends TimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;     // 회원정보 수정을 위한 set method
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
+    private List<Board> boardList;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
+    private List<Likes> likeList;
+
+
     public void modify(String nickname, String password) {
         this.nickname = nickname;
         this.password = password;
@@ -45,5 +57,6 @@ public class Account extends TimeEntity {
     public String getRoleValue() {
         return this.role.getValue();
     }
+
 
 }

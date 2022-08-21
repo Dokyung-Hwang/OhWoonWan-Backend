@@ -1,25 +1,34 @@
 package com.oww.OhWoonWanBackend.config;
 
+import com.oww.OhWoonWanBackend.config.oauth.CustomAccountDetailsService;
+import com.oww.OhWoonWanBackend.config.oauth.CustomOAuth2AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)  // 특정 주소로 접근하면 권한 및 인증을 미리 체크
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final CustomAccountDetailsService customAccountDetailsService;
 
-    private final CustomUserDetailsService myUserDetailsService;
-
-    private final AuthenticationFailureHandler customFailureHandler;
+//    private final AuthenticationFailureHandler customFailureHandler;
     /* OAuth */
-    private final CustomOAuth2UserService customOAuth2UserService;
+    private final CustomOAuth2AccountService customOAuth2UserService;
 
     @Bean
-    public BCryptPasswordEncoder Encoder() {
+    public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -29,13 +38,13 @@ public class SecurityConfig {
         return super.authenticationManagerBean();
     }
 
-    /* 시큐리티가 로그인 과정에서 password를 가로챌때 어떤 해쉬로 암호화 했는지 확인 */
+     // 시큐리티가 로그인 과정에서 password를 가로챌때 어떤 해쉬로 암호화 했는지 확인
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService).passwordEncoder(Encoder());
+        auth.userDetailsService(customAccountDetailsService).passwordEncoder(encoder());
     }
 
-    /* static 관련설정은 무시 */
+    // static 관련설정은 무시
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
@@ -45,16 +54,17 @@ public class SecurityConfig {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().ignoringAntMatchers("/api/**") /* REST API 사용 예외처리 */
-                .and()
+                .csrf().disable();/* REST API 사용 예외처리 */
+        http
                 .authorizeRequests()
-                .antMatchers("/", "/auth/**", "/posts/read/**", "/posts/search/**").permitAll()
+                .antMatchers("/board/**" , "/auth/**", "/swagger-resources/**", "/swagger-ui/**", "/v2/**", "/comment/**")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/auth/loginProc")
-                .failureHandler(customFailureHandler)
+//                .failureHandler(customFailureHandler)
                 .defaultSuccessUrl("/")
                 .and()
                 .logout()

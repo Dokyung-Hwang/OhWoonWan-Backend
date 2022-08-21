@@ -3,24 +3,28 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/wdt?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 1112
+    url: jdbc:mysql://localhost:3306/ohwoonwan?serverTimezone=UTC&characterEncoding=UTF-8
+    username: oww
+    password: oww1!
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    open-in-view: false
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
-        ddl-auto: create
-        show_sql: true
         format_sql: true
-        default_batch_fetch_size: 100     # N+1 Problem prevention
 
   # OAuth
   profiles:
     include: oauth
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 
 logging:
@@ -32,3 +36,7 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+
+# File Directory
+file:
+  dir: /Users/cheoljin/cheoljin-workspace/web-workspace/oww_files/

@@ -1,4 +1,4 @@
-package com.oww.OhWoonWanBackend.entity;
+package com.oww.OhWoonWanBackend.common.type;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
