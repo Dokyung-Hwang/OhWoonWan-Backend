@@ -38,5 +38,9 @@ logging:
               BasicBinder: TRACE
 
 # File Directory
-file:
-  dir: /Users/cheoljin/cheoljin-workspace/web-workspace/oww_files/
+#file:
+#  dir:
+#    window: /Users/cheoljin/cheoljin-workspace/web-workspace/oww_files/
+#    mac: /Users/cheoljin/cheoljin-workspace/web-workspace/oww_files/
+#    linux: /Users/cheoljin/cheoljin-workspace/web-workspace/oww_files/
+
