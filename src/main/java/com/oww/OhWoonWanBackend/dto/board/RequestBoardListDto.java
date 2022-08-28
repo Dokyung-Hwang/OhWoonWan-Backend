@@ -1,5 +1,6 @@
 package com.oww.OhWoonWanBackend.dto.board;
 
+import com.oww.OhWoonWanBackend.common.type.BoardType;
 import com.oww.OhWoonWanBackend.dto.common.RequestListDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,5 +13,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RequestBoardListDto extends RequestListDto {
 
-    private String boardType;
+    private BoardType boardType;
 }
