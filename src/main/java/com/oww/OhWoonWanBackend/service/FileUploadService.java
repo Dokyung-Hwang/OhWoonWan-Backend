@@ -1,9 +1,6 @@
 package com.oww.OhWoonWanBackend.service;
 
 import com.oww.OhWoonWanBackend.dto.file.FileUploadDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +22,7 @@ public class FileUploadService {
         if (os.contains("win")) {
             this.fileDir = "window dir";
         } else if (os.contains("mac")) {
-            this.fileDir = "/Users/cheoljin/cheoljin-workspace/web-workspace/oww_files/";
+            this.fileDir = "/Users/cheoljin/cheoljin-workspace/web-workspace/ohwoonwan/oww_files/";
         } else if (os.contains("linux")) {
             this.fileDir = "linux dir";
         }
@@ -53,12 +50,10 @@ public class FileUploadService {
             e.printStackTrace();
         }
 
-        FileUploadDto fileUploadDto = FileUploadDto.builder()
+        return FileUploadDto.builder()
                 .uploadName(originalFilename)
                 .storeName(storeFileName)
                 .build();
-
-        return fileUploadDto;
     }
 
     private String createStoreName(String originalFileName) {
