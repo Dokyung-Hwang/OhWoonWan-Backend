@@ -13,14 +13,11 @@ spring:
     show-sql: true
     database: mysql
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
 
-  # OAuth
-  profiles:
-    include: oauth
 
   mvc:
     pathmatch:
@@ -39,4 +36,4 @@ logging:
 
 # File Directory
 file:
-  dir: /Users/cheoljin/cheoljin-workspace/web-workspace/oww_files/
+  dir: C:\\oww_file

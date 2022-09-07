@@ -5,6 +5,10 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
+import com.oww.OhWoonWanBackend.domain.Account;
+import com.oww.OhWoonWanBackend.dto.token.RequestRegisterTokenDto;
+import com.oww.OhWoonWanBackend.repository.AccountRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -13,14 +17,19 @@ import java.util.Arrays;
 import java.util.Collections;
 
 @Service
+@RequiredArgsConstructor
 public class TokenService {
 
-    private String clientId = "";
+    private final AccountRepository accountRepository;
+    private String clientId = "782440341476-sqh3gbcq7c2egacram5c2m6tpe06e2fe.apps.googleusercontent.com";
     private final NetHttpTransport transport = new NetHttpTransport();
     private final JsonFactory jsonFactory = new GsonFactory();
 
-    public int tokenVerify(String idToken) {
 
+
+    public GoogleIdToken tokenVerify(String idToken) {
+
+        // Google 검증
         GoogleIdTokenVerifier googleIdTokenVerifier = new GoogleIdTokenVerifier.Builder(
                 transport,
                 jsonFactory)
@@ -32,9 +41,7 @@ public class TokenService {
 
         try {
             googleIdToken = googleIdTokenVerifier.verify(idToken);
-        } catch (GeneralSecurityException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (GeneralSecurityException | IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -47,7 +54,7 @@ public class TokenService {
             String userId = payload.getSubject();
             System.out.println("User ID: " + userId);
             String email = payload.getEmail();
-            boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+            boolean emailVerified = payload.getEmailVerified();
             String name = (String) payload.get("name");
             String pictureUrl = (String) payload.get("picture");
             String locale = (String) payload.get("locale");
@@ -59,6 +66,7 @@ public class TokenService {
             System.out.println("locale: " + locale);
         }
 
-        return 0;
+
+        return googleIdToken;
     }
 }
