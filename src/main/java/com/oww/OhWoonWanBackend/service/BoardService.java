@@ -2,6 +2,7 @@ package com.oww.OhWoonWanBackend.service;
 
 import com.oww.OhWoonWanBackend.domain.Board;
 import com.oww.OhWoonWanBackend.domain.Photo;
+import com.oww.OhWoonWanBackend.dto.board.RequestBoardListDto;
 import com.oww.OhWoonWanBackend.dto.board.RequestRegisterBoardDto;
 import com.oww.OhWoonWanBackend.dto.board.ResponseBoardDto;
 import com.oww.OhWoonWanBackend.dto.board.ResponseBoardListDto;
@@ -26,11 +27,14 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final PhotoRepository photoRepository;
 
-    public ResponseBoardListDto getBordList() {
-        PageRequest pageRequest = PageRequest.of(0, 5, Sort.Direction.DESC, "createdDate");
-        Page<Board> boardList = boardRepository.findAll(pageRequest);
+    public ResponseBoardListDto getBordList(RequestBoardListDto requestDto) {
+        PageRequest pageRequest = PageRequest.of(requestDto.getPage(), requestDto.getPageSize(), Sort.Direction.DESC, "createdDate");
+        Page<Board> boardList = boardRepository.findBoardsByBoardTypeAndBoardIdLessThan(requestDto.getBoardType(), requestDto.getLastBoardId(), pageRequest);
 
         ResponseBoardListDto responseBoardListDto = ResponseBoardListDto.builder()
+                .page(boardList.getNumber())
+                .pageSize(boardList.getSize())
+                .totalCount(boardList.getTotalElements())
                 .boardDtoList(boardList.getContent().stream()
                         .map(
                                 board -> ResponseBoardDto.builder()

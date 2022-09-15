@@ -1,6 +1,7 @@
 package com.oww.OhWoonWanBackend.controller;
 
 import com.oww.OhWoonWanBackend.domain.Board;
+import com.oww.OhWoonWanBackend.dto.board.RequestBoardListDto;
 import com.oww.OhWoonWanBackend.dto.board.RequestRegisterBoardDto;
 import com.oww.OhWoonWanBackend.dto.board.ResponseBoardDto;
 import com.oww.OhWoonWanBackend.dto.board.ResponseBoardListDto;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -24,8 +26,8 @@ public class BoardController {
     private final FileUploadService fileUploadService;
 
     @GetMapping
-    public ResponseEntity<?> getBoardList() {
-        ResponseBoardListDto responseBoardListDto = boardService.getBordList();
+    public ResponseEntity<?> getBoardList(@Valid RequestBoardListDto requestDto) {
+        ResponseBoardListDto responseBoardListDto = boardService.getBordList(requestDto);
 
         return ResponseEntity.ok(responseBoardListDto);
     }
