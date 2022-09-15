@@ -36,4 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-application-oauth.yml
+### My ignore
+src/main/resources/application.yml
