@@ -28,7 +28,9 @@ public class CommentController {
     @PostMapping
     public ResponseEntity<?> createComment(@RequestBody RequestRegisterCommentDto requestDto) {
         Comment savedComment = commentService.create(requestDto);
-        URI location = UriComponentsBuilder.newInstance().path("/comment/{id}").buildAndExpand(savedComment.getCommentId()).toUri();
+        URI location = UriComponentsBuilder
+                .newInstance()
+                .path("/comment/{id}").buildAndExpand(savedComment.getCommentId()).toUri();
         return ResponseEntity.created(location).build();
     }
 }

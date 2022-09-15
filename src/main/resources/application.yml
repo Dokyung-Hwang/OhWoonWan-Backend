@@ -3,13 +3,13 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/ohwoonwan?serverTimezone=UTC&characterEncoding=UTF-8
-    username: oww
-    password: oww1!
+    url: jdbc:mysql://ohwoonwan-1.cctigties3vz.ap-northeast-2.rds.amazonaws.com:3306/ohwoonwan?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: dhdnsdhks1!
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     database: mysql
     hibernate:
@@ -18,9 +18,6 @@ spring:
       hibernate:
         format_sql: true
 
-  # OAuth
-  profiles:
-    include: oauth
 
   mvc:
     pathmatch:
@@ -38,9 +35,5 @@ logging:
               BasicBinder: TRACE
 
 # File Directory
-#file:
-#  dir:
-#    window: /Users/cheoljin/cheoljin-workspace/web-workspace/oww_files/
-#    mac: /Users/cheoljin/cheoljin-workspace/web-workspace/oww_files/
-#    linux: /Users/cheoljin/cheoljin-workspace/web-workspace/oww_files/
-
+file:
+  dir: C:\\oww_file
