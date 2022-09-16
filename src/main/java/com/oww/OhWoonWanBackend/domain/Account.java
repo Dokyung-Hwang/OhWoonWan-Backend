@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
+@Setter
 public class Account extends BaseTimeEntity {
 
     @Id

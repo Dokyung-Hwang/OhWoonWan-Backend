@@ -21,14 +21,13 @@ import java.util.Collections;
 public class TokenService {
 
     private final AccountRepository accountRepository;
-    private String clientId = "782440341476-sqh3gbcq7c2egacram5c2m6tpe06e2fe.apps.googleusercontent.com";
     private final NetHttpTransport transport = new NetHttpTransport();
     private final JsonFactory jsonFactory = new GsonFactory();
 
 
 
     public GoogleIdToken tokenVerify(String idToken) {
-
+        String clientId = "474289223100-osk0rrtf019p2n7loc8disd3bf9gcv0k.apps.googleusercontent.com";
         // Google 검증
         GoogleIdTokenVerifier googleIdTokenVerifier = new GoogleIdTokenVerifier.Builder(
                 transport,

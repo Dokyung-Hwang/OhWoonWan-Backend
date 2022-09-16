@@ -30,7 +30,9 @@ public class CommentController {
         Comment savedComment = commentService.create(requestDto);
         URI location = UriComponentsBuilder
                 .newInstance()
-                .path("/comment/{id}").buildAndExpand(savedComment.getCommentId()).toUri();
+                .path("/comment/{id}")
+                .buildAndExpand(savedComment.getCommentId())
+                .toUri();
         return ResponseEntity.created(location).build();
     }
 }
