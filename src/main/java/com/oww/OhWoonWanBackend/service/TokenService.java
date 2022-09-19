@@ -27,7 +27,7 @@ public class TokenService {
 
 
     public GoogleIdToken tokenVerify(String idToken) {
-        String clientId = "474289223100-osk0rrtf019p2n7loc8disd3bf9gcv0k.apps.googleusercontent.com";
+        String clientId = "747207187970-jjaise6kfhed5f51esqtj6mpgq5di4qe.apps.googleusercontent.com";
         // Google 검증
         GoogleIdTokenVerifier googleIdTokenVerifier = new GoogleIdTokenVerifier.Builder(
                 transport,

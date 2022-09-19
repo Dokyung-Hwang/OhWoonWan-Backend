@@ -8,6 +8,7 @@ import com.oww.OhWoonWanBackend.dto.account.ResponseAccountDto;
 import com.oww.OhWoonWanBackend.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -26,24 +27,27 @@ public class AccountService {
                 .role(Role.SOCIAL)
                 .build();
 
-        Account savedAccount = accountRepository.save(account);
-
-        return savedAccount;
+        return accountRepository.save(account);
     }
 
+    @Transactional
     public Account savedNickname(Long accountId, RequestNicknameDto requestNicknameDto) {
         Account getAccount = accountRepository.findById(accountId)
                 .orElseThrow(() -> new EntityNotFoundException("not found account"));
 
-        if (!getAccount.getNickname().isEmpty()){
-            throw new EntityNotFoundException("not found nickname");
+        if (getAccount.getNickname() != null){
+            throw new IllegalStateException("nickname exists");
         }
 
-        Account account = Account.builder()
-                .nickname(requestNicknameDto.getNickname())
-                .build();
+        getAccount.update(requestNicknameDto.getNickname(), requestNicknameDto.getRole());
 
-        Account updateAccount = accountRepository.save(account);
-        return updateAccount;
+        /*Account account = Account.builder()
+                .username(getAccount.getUsername())
+                .email(getAccount.getEmail())
+                .nickname(requestNicknameDto.getNickname())
+                .role(Role.USER)
+                .build();*/
+
+        return getAccount;
     }
 }

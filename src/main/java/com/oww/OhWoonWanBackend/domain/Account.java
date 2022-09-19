@@ -18,7 +18,7 @@ public class Account extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountId;
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(nullable = false, length = 30)
     private String username;        // 아이디
 
     @Column(unique = true)
@@ -29,7 +29,7 @@ public class Account extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;     // 회원정보 수정을 위한 set method
+    private Role role;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
     private List<Board> boardList;
@@ -52,5 +52,9 @@ public class Account extends BaseTimeEntity {
         return this.role.getValue();
     }
 
+    public void update(String nickname, Role role) {
+        this.nickname = nickname;
+        this.role = Role.USER;
+    }
 
 }
