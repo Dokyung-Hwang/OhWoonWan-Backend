@@ -6,11 +6,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestNicknameDto {
+
     private String nickname;
     private Role role = Role.USER;
+
+    @NotBlank
+    private String email;
+    @NotBlank
+    private Long accountId;
+
 }

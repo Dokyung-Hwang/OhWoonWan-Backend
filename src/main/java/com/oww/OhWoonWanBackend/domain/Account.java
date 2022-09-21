@@ -24,7 +24,7 @@ public class Account extends BaseTimeEntity {
     @Column(unique = true)
     private String nickname;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -56,5 +56,4 @@ public class Account extends BaseTimeEntity {
         this.nickname = nickname;
         this.role = Role.USER;
     }
-
 }

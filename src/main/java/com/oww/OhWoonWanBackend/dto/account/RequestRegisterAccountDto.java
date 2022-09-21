@@ -11,5 +11,4 @@ public class RequestRegisterAccountDto {
 
     private String email;
     private String name;
-
 }

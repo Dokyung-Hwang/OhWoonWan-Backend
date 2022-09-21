@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -19,7 +20,7 @@ public class AccountController {
 
 
     @PutMapping("/{accountId}")
-    public ResponseEntity<?> updateAccount(@PathVariable Long accountId, @RequestBody RequestNicknameDto requestNicknameDto) {
+    public ResponseEntity<?> updateAccount(@PathVariable Long accountId, @RequestBody RequestNicknameDto requestNicknameDto) throws Exception {
         Account savedAccount = accountService.savedNickname(accountId, requestNicknameDto);
 
         URI location = UriComponentsBuilder

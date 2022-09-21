@@ -28,7 +28,7 @@ public class TokenController {
     private final TokenService tokenService;
     private final AccountService accountService;
 
-    @PostMapping("/token")
+    @PostMapping("/api/token")
     public ResponseEntity<?> create(@RequestBody RequestRegisterTokenDto requestDto) {
         GoogleIdToken googleIdToken = tokenService.tokenVerify(requestDto.getIdToken());
         JwtBuilder builder = Jwts.builder();

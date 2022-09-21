@@ -4,14 +4,16 @@ import com.oww.OhWoonWanBackend.common.type.Role;
 import com.oww.OhWoonWanBackend.domain.Account;
 import com.oww.OhWoonWanBackend.dto.account.RequestNicknameDto;
 import com.oww.OhWoonWanBackend.dto.account.RequestRegisterAccountDto;
-import com.oww.OhWoonWanBackend.dto.account.ResponseAccountDto;
 import com.oww.OhWoonWanBackend.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -31,22 +33,18 @@ public class AccountService {
     }
 
     @Transactional
-    public Account savedNickname(Long accountId, RequestNicknameDto requestNicknameDto) {
+    public Account savedNickname(Long accountId, RequestNicknameDto requestNicknameDto) throws Exception {
         Account getAccount = accountRepository.findById(accountId)
                 .orElseThrow(() -> new EntityNotFoundException("not found account"));
 
-        if (getAccount.getNickname() != null){
+        if (getAccount.getNickname() != null) {
             throw new IllegalStateException("nickname exists");
         }
 
-        getAccount.update(requestNicknameDto.getNickname(), requestNicknameDto.getRole());
-
-        /*Account account = Account.builder()
-                .username(getAccount.getUsername())
-                .email(getAccount.getEmail())
-                .nickname(requestNicknameDto.getNickname())
-                .role(Role.USER)
-                .build();*/
+        if (!getAccount.getAccountId().equals(requestNicknameDto.getAccountId()) || !getAccount.getEmail().equals(requestNicknameDto.getEmail()))
+            throw new Exception(String.valueOf(HttpStatus.BAD_REQUEST));
+        else
+            getAccount.update(requestNicknameDto.getNickname(), requestNicknameDto.getRole());
 
         return getAccount;
     }
