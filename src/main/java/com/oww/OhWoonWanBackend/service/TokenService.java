@@ -20,15 +20,8 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class TokenService {
 
-    private final AccountRepository accountRepository;
     private final NetHttpTransport transport = new NetHttpTransport();
     private final JsonFactory jsonFactory = new GsonFactory();
-
-    /*public String createToken(Long accountId) {
-        String verifiedToken = "";
-        return verifiedToken;
-    }*/
-
 
     public GoogleIdToken tokenVerify(String idToken) {
         String clientId = "747207187970-jjaise6kfhed5f51esqtj6mpgq5di4qe.apps.googleusercontent.com";

@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -26,12 +27,13 @@ import java.util.Date;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("api/token")
 public class TokenController {
 
     private final TokenService tokenService;
     private final AccountService accountService;
 
-    @PostMapping("/api/token")
+    @PostMapping
     public ResponseEntity<?> create(@RequestBody RequestRegisterTokenDto requestDto) {
         GoogleIdToken googleIdToken = tokenService.tokenVerify(requestDto.getIdToken());
         JwtBuilder builder = Jwts.builder();
@@ -63,7 +65,6 @@ public class TokenController {
                 .name((String) googleIdToken.getPayload().get("name"))
                 .email(googleIdToken.getPayload().getEmail())
                 .build();
-
 
 
         Account savedAccount = accountService.createAccount(requestRegisterAccountDto);
