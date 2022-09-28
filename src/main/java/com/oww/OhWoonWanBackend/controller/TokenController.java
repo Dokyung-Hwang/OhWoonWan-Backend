@@ -3,6 +3,7 @@ package com.oww.OhWoonWanBackend.controller;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.oww.OhWoonWanBackend.domain.Account;
 import com.oww.OhWoonWanBackend.dto.account.RequestRegisterAccountDto;
+import com.oww.OhWoonWanBackend.dto.account.ResponseAccountIdDto;
 import com.oww.OhWoonWanBackend.dto.token.RequestRegisterTokenDto;
 import com.oww.OhWoonWanBackend.service.AccountService;
 import com.oww.OhWoonWanBackend.service.TokenService;
@@ -14,7 +15,9 @@ import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.crypto.SecretKey;
@@ -61,8 +64,13 @@ public class TokenController {
                 .email(googleIdToken.getPayload().getEmail())
                 .build();
 
+
+
         Account savedAccount = accountService.createAccount(requestRegisterAccountDto);
 
+        ResponseAccountIdDto responseAccountIdDto = ResponseAccountIdDto.builder()
+                .accountId(savedAccount.getAccountId())
+                .build();
 
         URI location = UriComponentsBuilder
                 .newInstance()
@@ -70,6 +78,6 @@ public class TokenController {
                 .buildAndExpand(savedAccount.getAccountId())
                 .toUri();
 
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(responseAccountIdDto);
     }
 }

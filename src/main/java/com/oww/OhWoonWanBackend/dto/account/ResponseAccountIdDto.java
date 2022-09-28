@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseAccountDto {
+public class ResponseAccountIdDto {
 
     private Long accountId;
-    private String nickname;
 }

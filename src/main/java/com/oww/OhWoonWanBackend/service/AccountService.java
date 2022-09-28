@@ -11,10 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -37,9 +34,11 @@ public class AccountService {
         Account getAccount = accountRepository.findById(accountId)
                 .orElseThrow(() -> new EntityNotFoundException("not found account"));
 
+/*
         if (getAccount.getNickname() != null) {
             throw new IllegalStateException("nickname exists");
         }
+*/
 
         if (!getAccount.getAccountId().equals(requestNicknameDto.getAccountId()) || !getAccount.getEmail().equals(requestNicknameDto.getEmail()))
             throw new Exception(String.valueOf(HttpStatus.BAD_REQUEST));

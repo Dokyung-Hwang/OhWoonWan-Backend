@@ -1,0 +1,47 @@
+server:
+  port: 8888
+
+spring:
+  datasource:
+
+    # MySQL AWS RDS Setting
+#    url: jdbc:mysql://ohwoonwan-1.cctigties3vz.ap-northeast-2.rds.amazonaws.com:3306/ohwoonwan?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+#    username: root
+#    password: dhdnsdhks1!
+
+    # MySQL localhost Setting
+    url: jdbc:mysql://localhost:3306/ohwoonwan?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: oww
+    password: oww1!
+
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+
+# File Directory
+file:
+  dir: /home/ec2-user/apps/OhWoonWan_fileUpload
